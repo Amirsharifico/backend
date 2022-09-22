@@ -40,5 +40,6 @@ const isAdmin = (req, res, next) => {
   }
   return res.status(401).send({ message: 'Admin Token is not valid.' });
 };
-
+// helper functions
 export { getToken, isAuth, isAdmin };
+

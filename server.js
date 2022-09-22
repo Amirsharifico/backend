@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import config from './config';
 import userRoute from './routes/userRoute';
+import productRoute from './routes/productRoute';
+import uploadRoute from './routes/uploadRoute';
 
 const mongodbUrl = config.MONGODB_URL;
 mongoose
@@ -16,7 +18,14 @@ mongoose
 
 const app = express();
 app.use(bodyParser.json());
+app.use('/api/uploads', uploadRoute);
 app.use('/api/users', userRoute);
+app.use('/api/products', productRoute);
+
+
+
+
+
 
 app.use(express.static(path.join(__dirname, '/../frontend/build')));
 app.get('*', (req, res) => {
