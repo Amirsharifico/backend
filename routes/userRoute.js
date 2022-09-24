@@ -43,11 +43,10 @@ router.post('/signin', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-  const user = new User({
-    name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
-  });
+  const {name,email,password} = req.body;
+
+  if(name && email && password) {
+    const user = new User({ name, email, password });
   const newUser = await user.save();
   if (newUser) {
     res.send({
@@ -58,8 +57,12 @@ router.post('/register', async (req, res) => {
       token: getToken(newUser),
     });
   } else {
-    res.status(401).send({ message: 'Invalid User Data.' });
-  }
+    res.status(401)
+    .send({ message: 'Invalid User Data.' });
+}
+}else{
+res.status(400).send({ message: 'all field is required' });
+}
 });
 
 router.get('/createadmin', async (req, res) => {
@@ -67,7 +70,7 @@ router.get('/createadmin', async (req, res) => {
     const user = new User({
       name: 'hossein',
       email: 'hossein@gmail.com',
-      password: '1234',
+      password: '123456',
       isAdmin: true,
     });
     const newUser = await user.save();
