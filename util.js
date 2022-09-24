@@ -42,4 +42,3 @@ const isAdmin = (req, res, next) => {
 };
 // helper functions
 export { getToken, isAuth, isAdmin };
-
